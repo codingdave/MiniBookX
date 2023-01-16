@@ -14,7 +14,6 @@ Edit `/etc/default/grub` and change `GRUB_GFXMODE` to `1280x1024x32`. Then re-cr
 ```
 GRUB_GFXMODE=1280x1024x32
 ```
-=
 
 ### kernel boot messages rotated:
 Edit `/etc/default/grub` and add `fbcon=rotate:1` to `GRUB_CMDLINE_LINUX`. Then re-create the grub boot menu.
