@@ -3,12 +3,29 @@ Linux Chuwi MiniBook X impovements
 
 Some resources to have a better Linux experience
 
-## 61-sensor
-This udev rule fixes the wrongly rotated screen. Just save it as /lib/udev/hwdb.d/61-sensor-MiniBookX, make sure you have [iio-sensor-proxy](https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/) installed and with [screen-autorotate](https://github.com/shyzus/gnome-shell-extension-screen-autorotate) installed and activated the screen rotates always correctly.
+## Fixes
 
-TODO: Fix grub rotation
+### 61-sensor
+This udev rule fixes the wrongly rotated screen. Just save it as /lib/udev/hwdb.d/61-sensor-MiniBookX, make sure you have [iio-sensor-proxy](https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/) installed and with [screen-autorotate](https://github.com/shyzus/gnome-shell-extension-screen-autorotate) installed and activated the screen rotates always correctly. 
 
-## Workaround when touchpad freezes:
+### Grub menu too small:
+Edit `/etc/default/grub` and change `GRUB_GFXMODE` to `1280x1024x32`. Then re-create the grub boot menu.
+
+```
+GRUB_GFXMODE=1280x1024x32
+```
+=
+
+### kernel boot messages rotated:
+Edit `/etc/default/grub` and add `fbcon=rotate:1` to `GRUB_CMDLINE_LINUX`. Then re-create the grub boot menu.
+
+```
+GRUB_CMDLINE_LINUX="fbcon=rotate:1"
+```
+
+## Workarounds
+
+### Touchpad freezes:
 Unload the kernel module and load it again: 
 
 ```
@@ -16,7 +33,7 @@ sudo modprobe -r i2c_hid_acpi
 sudo modprobe i2c_hid_acpi
 ```
 
-## Workaround for xrandr:
+### xrandr:
 randr does not work and either does nothing or reports an error:
 
 ```
@@ -41,3 +58,8 @@ gnome-randr --output DSI-1 --rotate right
 - Grub rotation is wrong
 - When going from the laptop to the tablet mode (convertible) the touchpad and keyboard shall get disabled and vice versa. 
 - xrandr cannot rotate the screen with Wayland. See workaround on top.
+
+## TODO
+- grub rotation
+- detect-tablet-mode
+- tablet-mode
